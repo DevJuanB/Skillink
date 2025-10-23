@@ -43,7 +43,7 @@ export default function Home() {
       <Navbar />
 
       <section
-        className="relative min-h-[90vh] flex items-center justify-center overflow-hidden"
+        className="relative min-h-[90vh] flex items-center justify-center overflow-hidden aurora"
         style={{
           background: `linear-gradient(135deg, rgba(30, 58, 138, 0.95) 0%, rgba(124, 58, 237, 0.95) 50%, rgba(236, 72, 153, 0.95) 100%), url(${heroImage})`,
           backgroundSize: "cover",
@@ -53,18 +53,18 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-900/20 to-black/40" />
         
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center space-y-8">
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight" data-testid="text-hero-title">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight fade-in-up" data-testid="text-hero-title">
             Buy and Sell Real Skills
           </h1>
-          <p className="text-lg md:text-xl text-gray-100 max-w-2xl mx-auto" data-testid="text-hero-subtitle">
+          <p className="text-lg md:text-xl text-gray-100 max-w-2xl mx-auto fade-in-delay-1" data-testid="text-hero-subtitle">
             Find talented designers, programmers, writers and more. Or offer your expertise to thousands of buyers.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4 fade-in-delay-2">
             <Link href="/register">
               <Button
                 size="lg"
-                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold px-8 py-6 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-105 text-base"
+                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold px-8 py-6 rounded-full shadow-lg hover:shadow-xl smooth-all hover:scale-105 text-base pulse-glow"
                 data-testid="button-explore-skills"
               >
                 Explore Skills
@@ -75,7 +75,7 @@ export default function Home() {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-2 border-white text-white bg-white/10 backdrop-blur-sm hover:bg-white hover:text-purple-600 px-8 py-6 rounded-full font-semibold transition-all text-base"
+                className="border-2 border-white text-white glass hover:bg-white hover:text-purple-600 px-8 py-6 rounded-full font-semibold smooth-all text-base"
                 data-testid="button-offer-service"
               >
                 Offer a Service
@@ -83,12 +83,13 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="pt-8 flex items-center justify-center gap-2 text-gray-200">
+          <div className="pt-8 flex items-center justify-center gap-2 text-gray-200 fade-in-delay-3">
             <div className="flex -space-x-2">
               {[1, 2, 3, 4].map((i) => (
                 <div
                   key={i}
-                  className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 border-2 border-white"
+                  className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 border-2 border-white float"
+                  style={{ animationDelay: `${i * 0.2}s` }}
                 />
               ))}
             </div>
@@ -99,8 +100,8 @@ export default function Home() {
 
       <section className="py-16 md:py-24 bg-background">
         <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4" data-testid="text-categories-title">
+          <div className="text-center mb-12 fade-in-up">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gradient" data-testid="text-categories-title">
               Browse by Category
             </h2>
             <p className="text-lg text-muted-foreground">
@@ -109,15 +110,15 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
-            {categories.map((category) => {
+            {categories.map((category, index) => {
               const Icon = category.icon;
               return (
                 <Card
                   key={category.name}
-                  className="p-6 text-center hover-elevate active-elevate-2 cursor-pointer transition-all duration-300 hover:scale-105"
+                  className="p-6 text-center hover-elevate active-elevate-2 cursor-pointer smooth-all lift-hover glow-border stagger-item"
                   data-testid={`card-category-${category.name.toLowerCase().replace(/\s+/g, '-')}`}
                 >
-                  <div className={`w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br ${category.color} flex items-center justify-center`}>
+                  <div className={`w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br ${category.color} flex items-center justify-center shimmer`}>
                     <Icon className="w-8 h-8 text-white" />
                   </div>
                   <h3 className="font-semibold text-sm">{category.name}</h3>
@@ -128,9 +129,14 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-16 md:py-24 bg-card">
-        <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
-          <div className="flex justify-between items-center mb-12">
+      <section className="py-16 md:py-24 bg-card relative overflow-hidden">
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute top-0 left-0 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" />
+          <div className="absolute bottom-0 right-0 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" style={{ animationDelay: '1s' }} />
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 relative z-10">
+          <div className="flex justify-between items-center mb-12 fade-in-up">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold mb-4" data-testid="text-featured-title">
                 Featured Skills
@@ -144,7 +150,7 @@ export default function Home() {
           {isLoading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               {[1, 2, 3, 4, 5, 6].map((i) => (
-                <Card key={i} className="h-96 animate-pulse bg-muted" />
+                <Card key={i} className="h-96 animate-pulse bg-muted shimmer" />
               ))}
             </div>
           ) : skills && skills.length > 0 ? (
@@ -158,14 +164,16 @@ export default function Home() {
               ))}
             </div>
           ) : (
-            <Card className="p-12 text-center">
-              <Sparkles className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
+            <Card className="p-12 text-center fade-in-up glass">
+              <Sparkles className="w-16 h-16 mx-auto mb-4 text-muted-foreground float" />
               <h3 className="text-xl font-semibold mb-2">No skills yet</h3>
               <p className="text-muted-foreground mb-6">
                 Be the first to offer your expertise!
               </p>
               <Link href="/dashboard">
-                <Button data-testid="button-create-first-skill">Create Your First Skill</Button>
+                <Button data-testid="button-create-first-skill" className="magnetic-hover">
+                  Create Your First Skill
+                </Button>
               </Link>
             </Card>
           )}

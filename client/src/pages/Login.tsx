@@ -54,24 +54,29 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-purple-50 to-pink-50 p-4">
-      <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center gap-2 mb-4" data-testid="link-home-logo">
-            <Sparkles className="w-8 h-8 text-primary" />
-            <span className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-purple-50 via-pink-50 to-purple-100 p-4 gradient-animate aurora relative overflow-hidden">
+      <div className="absolute inset-0 opacity-30">
+        <div className="absolute top-20 left-20 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-30 float" />
+        <div className="absolute bottom-20 right-20 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-30 float" style={{ animationDelay: '1s' }} />
+      </div>
+      
+      <div className="w-full max-w-md relative z-10">
+        <div className="text-center mb-8 fade-in-up">
+          <Link href="/" className="inline-flex items-center gap-2 mb-4 hover-elevate active-elevate-2 rounded-md px-3 py-2 smooth-all" data-testid="link-home-logo">
+            <Sparkles className="w-8 h-8 text-primary float" />
+            <span className="text-2xl font-bold text-gradient">
               SkillMarket
             </span>
           </Link>
-          <h1 className="text-3xl font-bold mt-4 mb-2" data-testid="text-login-title">
+          <h1 className="text-3xl font-bold mt-4 mb-2 fade-in-delay-1" data-testid="text-login-title">
             Welcome Back
           </h1>
-          <p className="text-muted-foreground">
+          <p className="text-muted-foreground fade-in-delay-2">
             Log in to access your dashboard
           </p>
         </div>
 
-        <Card className="p-8 md:p-12 shadow-2xl">
+        <Card className="p-8 md:p-12 shadow-2xl glass fade-in-delay-3 lift-hover">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               <FormField
@@ -85,7 +90,7 @@ export default function Login() {
                         type="email"
                         placeholder="your@email.com"
                         {...field}
-                        className="border-2 focus:border-primary rounded-lg p-3"
+                        className="border-2 focus:border-primary rounded-lg p-3 smooth-all"
                         data-testid="input-email"
                       />
                     </FormControl>
@@ -105,7 +110,7 @@ export default function Login() {
                         type="password"
                         placeholder="Enter your password"
                         {...field}
-                        className="border-2 focus:border-primary rounded-lg p-3"
+                        className="border-2 focus:border-primary rounded-lg p-3 smooth-all"
                         data-testid="input-password"
                       />
                     </FormControl>
@@ -116,7 +121,7 @@ export default function Login() {
 
               <Button
                 type="submit"
-                className="w-full h-12 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold rounded-lg"
+                className="w-full h-12 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold rounded-lg smooth-all magnetic-hover pulse-glow"
                 disabled={loginMutation.isPending}
                 data-testid="button-submit"
               >
@@ -134,7 +139,7 @@ export default function Login() {
 
           <div className="mt-6 text-center text-sm">
             <span className="text-muted-foreground">Don't have an account? </span>
-            <Link href="/register" className="text-primary font-medium hover:underline" data-testid="link-register">
+            <Link href="/register" className="text-primary font-medium underline-animate" data-testid="link-register">
               Sign Up
             </Link>
           </div>

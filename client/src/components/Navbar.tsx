@@ -13,26 +13,27 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="sticky top-0 z-50 backdrop-blur-lg bg-white/90 border-b border-border">
+    <nav className="sticky top-0 z-50 glass border-b border-border shadow-sm">
       <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
-          <Link href="/" className="flex items-center gap-2 hover-elevate active-elevate-2 rounded-md px-2 py-1 -ml-2" data-testid="link-home">
-            <Sparkles className="w-6 h-6 text-primary" />
-            <span className="text-xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+          <Link href="/" className="flex items-center gap-2 hover-elevate active-elevate-2 rounded-md px-2 py-1 -ml-2 smooth-all" data-testid="link-home">
+            <Sparkles className="w-6 h-6 text-primary float" />
+            <span className="text-xl font-bold text-gradient">
               SkillMarket
             </span>
           </Link>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 fade-in-delay-1">
             {isAuthenticated ? (
               <>
-                <span className="text-sm text-muted-foreground hidden md:inline">
+                <span className="text-sm text-muted-foreground hidden md:inline fade-in-delay-2">
                   {user?.name}
                 </span>
                 <Link href="/dashboard">
                   <Button
                     variant={location === "/dashboard" ? "default" : "ghost"}
                     size="default"
+                    className="smooth-all"
                     data-testid="link-dashboard"
                   >
                     Dashboard
@@ -42,6 +43,7 @@ export default function Navbar() {
                   variant="ghost"
                   size="icon"
                   onClick={handleLogout}
+                  className="smooth-all"
                   data-testid="button-logout"
                 >
                   <LogOut className="w-4 h-4" />
@@ -50,12 +52,12 @@ export default function Navbar() {
             ) : (
               <>
                 <Link href="/login">
-                  <Button variant="ghost" size="default" data-testid="link-login">
+                  <Button variant="ghost" size="default" className="smooth-all" data-testid="link-login">
                     Login
                   </Button>
                 </Link>
                 <Link href="/register">
-                  <Button variant="default" size="default" data-testid="link-register">
+                  <Button variant="default" size="default" className="smooth-all pulse-glow" data-testid="link-register">
                     Sign Up
                   </Button>
                 </Link>
