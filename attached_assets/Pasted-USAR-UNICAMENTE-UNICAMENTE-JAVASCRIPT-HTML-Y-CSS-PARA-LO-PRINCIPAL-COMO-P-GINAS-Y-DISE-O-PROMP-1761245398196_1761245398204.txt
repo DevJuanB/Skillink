@@ -1,0 +1,162 @@
+USAR UNICAMENTE, UNICAMENTE: JAVASCRIPT, HTML Y CSS PARA LO PRINCIPAL COMO PÁGINAS Y DISEÑO .. PROMPT: Crea una **aplicación web fullstack moderna** llamada **SkillMarket**: una **plataforma de microtrabajos donde los usuarios puedan comprar y vender habilidades** (diseño, redacción, programación, ilustración, etc.).
+
+La app debe incluir **login/register, rutas seguras, base de datos, manejo de errores y una página principal atractiva (Home)**.
+
+---
+
+### ⚙️ **Requerimientos técnicos**
+
+**Stack recomendado:**
+
+* Frontend: React + TailwindCSS + React Router.
+* Backend: Node.js (Express.js) o Next.js con API Routes.
+* Base de datos: MongoDB (con Mongoose).
+* Autenticación: JWT + bcrypt.
+* Manejo de errores: middleware personalizado.
+* Control de estado global: Context API o Zustand (a elección).
+* Validación de formularios: Zod o Yup.
+
+---
+
+### 🧩 **Estructura general del proyecto**
+
+```
+/src
+ ├── /frontend
+ │    ├── /pages
+ │    │    ├── Home.jsx
+ │    │    ├── Login.jsx
+ │    │    ├── Register.jsx
+ │    │    ├── Dashboard.jsx
+ │    │    └── SkillDetail.jsx
+ │    ├── /components
+ │    │    ├── Navbar.jsx
+ │    │    ├── Footer.jsx
+ │    │    ├── SkillCard.jsx
+ │    │    ├── Loader.jsx
+ │    │    └── ErrorBoundary.jsx
+ │    ├── /context
+ │    │    └── AuthContext.jsx
+ │    ├── /hooks
+ │    │    └── useAuth.js
+ │    ├── /utils
+ │    │    └── api.js
+ │    └── App.jsx
+ │
+ └── /backend
+      ├── /models
+      │    ├── User.js
+      │    └── Skill.js
+      ├── /routes
+      │    ├── authRoutes.js
+      │    └── skillRoutes.js
+      ├── /controllers
+      │    ├── authController.js
+      │    └── skillController.js
+      ├── /middleware
+      │    ├── authMiddleware.js
+      │    └── errorHandler.js
+      ├── server.js
+      └── config.js
+```
+
+---
+
+### 🧠 **Descripción funcional (Versión 1)**
+
+#### 🏠 **Home Page**
+
+* Muestra una **cabecera hero llamativa**: “Compra y vende habilidades reales”.
+* Botones “Explorar habilidades” y “Ofrecer un servicio”.
+* Sección de **cards** con habilidades destacadas (imagen, título, descripción, precio, botón “Ver más”).
+* Navbar con Login/Register y acceso al Dashboard si está logueado.
+* Footer con enlaces básicos.
+
+#### 👤 **Autenticación**
+
+* Registro con nombre, correo, contraseña (hash con bcrypt).
+* Login con validación (JWT).
+* Guardar token en localStorage o cookies seguras.
+* Middleware para proteger rutas como `/dashboard` y `/skills/create`.
+
+#### 💼 **Sistema de Habilidades**
+
+* Modelo: `Skill { title, description, price, category, sellerId, createdAt }`.
+* CRUD básico:
+
+  * `GET /skills` → listar habilidades.
+  * `POST /skills` → crear habilidad (solo autenticado).
+  * `GET /skills/:id` → ver detalle.
+  * `DELETE /skills/:id` → eliminar (solo propietario).
+
+#### ⚙️ **Manejo de Errores**
+
+* Middleware `errorHandler.js` que devuelve errores con estructura:
+
+  ```json
+  { success: false, message: "Error específico", statusCode: 400 }
+  ```
+* Página de error amigable con mensajes personalizados.
+
+#### 📡 **Conexión a Base de Datos**
+
+* MongoDB con Mongoose.
+* Variables de entorno `.env` para URI y JWT_SECRET.
+
+#### 🔐 **Rutas principales**
+
+| Ruta                 | Método | Descripción        | Protegida |
+| -------------------- | ------ | ------------------ | --------- |
+| `/api/auth/register` | POST   | Crear usuario      | ❌         |
+| `/api/auth/login`    | POST   | Iniciar sesión     | ❌         |
+| `/api/skills`        | GET    | Listar habilidades | ❌         |
+| `/api/skills/:id`    | GET    | Ver detalle        | ❌         |
+| `/api/skills`        | POST   | Crear habilidad    | ✅         |
+| `/api/skills/:id`    | DELETE | Eliminar habilidad | ✅         |
+
+---
+
+### 💅 **Diseño visual sugerido (Home)**
+
+* Fondo degradado azul/púrpura.
+* Hero centrado con texto grande y botón animado.
+* Grid de 3 o 6 tarjetas con hover effects.
+* Transiciones suaves (Framer Motion o Tailwind animations).
+* Footer con redes sociales y créditos.
+
+Ejemplo de hero:
+
+```jsx
+<h1 className="text-5xl font-bold text-white text-center">
+  Compra y vende habilidades reales 💡
+</h1>
+<p className="text-gray-200 text-center mt-4">
+  Encuentra diseñadores, programadores, redactores y más.
+</p>
+```
+
+---
+
+### 🧰 **Funciones clave (para implementar en esta versión)**
+
+* `registerUser(req, res)` → crea usuario y token.
+* `loginUser(req, res)` → valida credenciales, genera JWT.
+* `createSkill(req, res)` → publica habilidad.
+* `getSkills(req, res)` → devuelve todas las habilidades.
+* `getSkillById(req, res)` → detalle de una habilidad.
+* `deleteSkill(req, res)` → elimina habilidad propia.
+
+---
+
+### 🚨 **Extras**
+
+* Página 404 personalizada.
+* Loading spinner global.
+* Toasts para mensajes de éxito/error (usando react-hot-toast o similar).
+* Dark mode toggle (opcional).
+
+---
+
+### 🎯 **Objetivo de esta versión**
+
+> Entregar una **versión funcional completa (V1)** del proyecto: con login, rutas, base de datos, y una **Home visualmente atractiva**, lista para escalar en futuras versiones (chat entre usuarios, pagos, verificación, reseñas, etc.).
