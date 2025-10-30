@@ -9,6 +9,10 @@ import Login from "@/pages/Login";
 import Register from "@/pages/Register";
 import Dashboard from "@/pages/Dashboard";
 import SkillDetail from "@/pages/SkillDetail";
+import Marketplace from "@/pages/Marketplace";
+import Exchange from "@/pages/Exchange";
+import HowItWorks from "@/pages/HowItWorks";
+import Profile from "@/pages/Profile";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -18,6 +22,10 @@ function Router() {
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
       <Route path="/dashboard" component={Dashboard} />
+      <Route path="/marketplace" component={Marketplace} />
+      <Route path="/exchange" component={Exchange} />
+      <Route path="/how-it-works" component={HowItWorks} />
+      <Route path="/profile" component={Profile} />
       <Route path="/skills/:id" component={SkillDetail} />
       <Route component={NotFound} />
     </Switch>
