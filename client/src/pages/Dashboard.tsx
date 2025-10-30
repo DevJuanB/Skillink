@@ -60,7 +60,7 @@ export default function Dashboard() {
     defaultValues: {
       title: "",
       description: "",
-      price: 0,
+      coins: 0,
       category: "",
       sellerId: user?.id || "",
     },
@@ -230,17 +230,17 @@ export default function Dashboard() {
 
                     <FormField
                       control={form.control}
-                      name="price"
+                      name="coins"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Price ($)</FormLabel>
+                          <FormLabel>Coins (Hours)</FormLabel>
                           <FormControl>
                             <Input
                               type="number"
-                              placeholder="50"
+                              placeholder="10"
                               {...field}
                               onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
-                              data-testid="input-skill-price"
+                              data-testid="input-skill-coins"
                             />
                           </FormControl>
                           <FormMessage />

@@ -54,10 +54,10 @@ export default function Home() {
         
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center space-y-8">
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight fade-in-up" data-testid="text-hero-title">
-            Buy and Sell Real Skills
+            Where Time Equals Value
           </h1>
           <p className="text-lg md:text-xl text-gray-100 max-w-2xl mx-auto fade-in-delay-1" data-testid="text-hero-subtitle">
-            Find talented designers, programmers, writers and more. Or offer your expertise to thousands of buyers.
+            Trade skills with coins. 1 coin = 1 hour of work. Earn, exchange, and cash out.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4 fade-in-delay-2">

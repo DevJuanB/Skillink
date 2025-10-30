@@ -2,7 +2,7 @@ import { Link, useLocation } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/auth-context";
-import { Sparkles, LogOut, Coins, Menu, X, ShoppingBag, TrendingUp, HelpCircle, User } from "lucide-react";
+import { Sparkles, LogOut, Coins, Menu, X, ShoppingBag, TrendingUp, HelpCircle, User as UserIcon } from "lucide-react";
 import { useState } from "react";
 import type { User } from "@shared/schema";
 
@@ -77,7 +77,7 @@ export default function Navbar() {
                     className="smooth-all"
                     data-testid="link-profile"
                   >
-                    <User className="w-4 h-4" />
+                    <UserIcon className="w-4 h-4" />
                   </Button>
                 </Link>
                 <Link href="/dashboard">
@@ -165,7 +165,7 @@ export default function Navbar() {
                     onClick={() => setMobileMenuOpen(false)}
                     data-testid="mobile-link-profile"
                   >
-                    <User className="w-4 h-4 mr-2" />
+                    <UserIcon className="w-4 h-4 mr-2" />
                     Profile
                   </Button>
                 </Link>

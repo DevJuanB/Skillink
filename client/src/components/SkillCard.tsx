@@ -57,10 +57,15 @@ export default function SkillCard({ skill, imageUrl }: SkillCardProps) {
 
           <div className="border-t border-border pt-4 flex justify-between items-center">
             <div>
-              <p className="text-xs text-muted-foreground">Starting at</p>
-              <p className="text-xl font-bold text-foreground" data-testid={`text-price-${skill.id}`}>
-                ${skill.price}
-              </p>
+              <p className="text-xs text-muted-foreground">Time Required</p>
+              <div className="flex items-center gap-1">
+                <p className="text-xl font-bold text-foreground" data-testid={`text-coins-${skill.id}`}>
+                  {skill.coins}
+                </p>
+                <span className="text-sm text-muted-foreground">
+                  {skill.coins === 1 ? "hour" : "hours"}
+                </span>
+              </div>
             </div>
             <div className="flex items-center gap-1 text-primary font-medium text-sm group-hover:gap-2 smooth-all">
               <span>View</span>

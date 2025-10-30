@@ -158,10 +158,15 @@ export default function SkillDetail() {
                 </div>
 
                 <div>
-                  <p className="text-sm text-muted-foreground mb-2">Starting at</p>
-                  <p className="text-4xl font-bold" data-testid="text-price">
-                    ${skill.price}
-                  </p>
+                  <p className="text-sm text-muted-foreground mb-2">Time Required</p>
+                  <div className="flex items-baseline gap-2">
+                    <p className="text-4xl font-bold" data-testid="text-coins">
+                      {skill.coins}
+                    </p>
+                    <span className="text-lg text-muted-foreground">
+                      {skill.coins === 1 ? "hour" : "hours"}
+                    </span>
+                  </div>
                 </div>
 
                 <Button className="w-full h-12 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700" data-testid="button-contact">
