@@ -4,10 +4,10 @@ import bcrypt from "bcryptjs";
 import { storage } from "./storage";
 import { authMiddleware, generateToken, type AuthRequest } from "./middleware/auth";
 import { AppError, errorHandler } from "./middleware/error-handler";
-import { loginSchema, registerSchema, insertSkillSchema, updateSkillSchema } from "@shared/schema";
+import { loginSchema, registerSchema, insertSkillSchema, updateSkillSchema, exchangeRates } from "@shared/schema";
+import { z } from "zod";
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Auth Routes
   app.post("/api/auth/register", async (req, res, next) => {
     try {
       const validatedData = registerSchema.parse(req.body);
@@ -66,7 +66,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Skill Routes
+  app.get("/api/user/me", authMiddleware, async (req: AuthRequest, res, next) => {
+    try {
+      if (!req.userId) {
+        throw new AppError("Unauthorized", 401);
+      }
+
+      const user = await storage.getUser(req.userId);
+      if (!user) {
+        throw new AppError("User not found", 404);
+      }
+
+      const { password, ...userWithoutPassword } = user;
+      res.json(userWithoutPassword);
+    } catch (error) {
+      next(error);
+    }
+  });
+
   app.get("/api/skills", async (req, res, next) => {
     try {
       const skills = await storage.getSkills();
@@ -142,7 +159,57 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Error handler must be last
+  app.post("/api/coins/exchange", authMiddleware, async (req: AuthRequest, res, next) => {
+    try {
+      if (!req.userId) {
+        throw new AppError("Unauthorized", 401);
+      }
+
+      const { packageType } = z.object({
+        packageType: z.enum(["small", "large"]),
+      }).parse(req.body);
+
+      const user = await storage.getUser(req.userId);
+      if (!user) {
+        throw new AppError("User not found", 404);
+      }
+
+      const requiredCoins = packageType === "small" 
+        ? exchangeRates.smallPackage.coins 
+        : exchangeRates.largePackage.coins;
+
+      if (user.coins < requiredCoins) {
+        throw new AppError(`Insufficient coins. You need ${requiredCoins} coins to exchange.`, 400);
+      }
+
+      const newCoinBalance = user.coins - requiredCoins;
+      const updatedUser = await storage.updateUserCoins(req.userId, newCoinBalance);
+
+      if (!updatedUser) {
+        throw new AppError("Failed to update user coins", 500);
+      }
+
+      const amount = packageType === "small" 
+        ? exchangeRates.smallPackage.price 
+        : exchangeRates.largePackage.price;
+
+      const { password, ...userWithoutPassword } = updatedUser;
+
+      res.json({
+        success: true,
+        message: `Successfully exchanged ${requiredCoins} coins for $${amount.toLocaleString()}`,
+        user: userWithoutPassword,
+        transaction: {
+          coinsExchanged: requiredCoins,
+          amountReceived: amount,
+          remainingCoins: newCoinBalance,
+        },
+      });
+    } catch (error) {
+      next(error);
+    }
+  });
+
   app.use(errorHandler);
 
   const httpServer = createServer(app);

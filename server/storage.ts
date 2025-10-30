@@ -5,6 +5,7 @@ export interface IStorage {
   getUser(id: string): Promise<User | undefined>;
   getUserByEmail(email: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
+  updateUserCoins(id: string, coins: number): Promise<User | undefined>;
   
   getSkills(): Promise<SkillWithSeller[]>;
   getSkillById(id: string): Promise<SkillWithSeller | undefined>;
@@ -34,9 +35,18 @@ export class MemStorage implements IStorage {
 
   async createUser(insertUser: InsertUser): Promise<User> {
     const id = randomUUID();
-    const user: User = { ...insertUser, id };
+    const user: User = { ...insertUser, id, coins: 0 };
     this.users.set(id, user);
     return user;
+  }
+
+  async updateUserCoins(id: string, coins: number): Promise<User | undefined> {
+    const user = this.users.get(id);
+    if (!user) return undefined;
+    
+    const updatedUser = { ...user, coins };
+    this.users.set(id, updatedUser);
+    return updatedUser;
   }
 
   async getSkills(): Promise<SkillWithSeller[]> {
