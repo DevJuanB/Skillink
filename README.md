@@ -54,3 +54,15 @@ http://localhost:5000
 
 ¡Y listo! Tu proyecto estará corriendo localmente 🚀
 
+
+# vista previa
+
+[![Vista previa del proyecto](https://i.imgur.com/S96QRRx.png)](https://github.com/DevJuanB/Skillink)
+
+## About
+
+[![Vista previa del proyecto](https://i.imgur.com/mLYwm4i.png)](https://github.com/DevJuanB/Skillink)
+
+# 🔜ESTE DEPLOY CONSTITUYE UNICAMENTE LA DEMO, TIENE LA ESCALABILIDAD A BASE DE DATOS EN UN 80%.
+
+
